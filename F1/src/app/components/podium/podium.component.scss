@@ -1,0 +1,30 @@
+.podium-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: end;
+  padding: 1rem;
+}
+
+.pos {
+  border-radius: 10px;
+  padding: 0.5rem;
+  width: 120px;
+  background-color: gold;
+  border: 3px solid #000;
+  margin-right: 10px;
+}
+
+.pos.pos2 {
+  height: 80px;
+  background-color: silver;
+}
+
+.pos.pos1 {
+  height: 120px;
+}
+
+.pos.pos3 {
+  height: 40px;
+  background-color: sandybrown;
+}

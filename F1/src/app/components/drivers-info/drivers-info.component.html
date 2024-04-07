@@ -1,0 +1,18 @@
+@if ((f1Service.results$|async); as results) {
+  @if (results.MRData) {
+    <div class="info-container">
+
+      @for (race of results.MRData.RaceTable.Races; track race.round) {
+        @for (raceResults of race.Results; let i = $index; track raceResults.position) {
+          @if (+raceResults.position == 1) {
+            <h1>{{ raceResults.position }}.
+              {{ raceResults.Driver.givenName }} {{ raceResults.Driver.familyName }}</h1>
+            <p>Born: {{ raceResults.Driver.dateOfBirth }}</p>
+            <p>Nationality: {{ raceResults.Driver.nationality }}</p>
+            <a mat-raised-button href="{{raceResults.Driver.url}}" target="_blank">More info</a>
+          }
+        }
+      }
+    </div>
+  }
+}

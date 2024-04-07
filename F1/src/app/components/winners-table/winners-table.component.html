@@ -1,0 +1,67 @@
+<div class="container">
+
+  @if ((f1Service.results$|async); as results) {
+    @if (results.MRData) {
+
+
+      <ng-container matColumnDef="headerRow">
+        <tr mat-header-row *matHeaderRowDef="['Results','Final']; sticky: true;"></tr>
+      </ng-container>
+      @for (race of results.MRData.RaceTable.Races; track race.round) {
+        <table mat-table class="mat-elevation-z8" [dataSource]="race.Results">
+
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>Pos</th>
+            <td mat-cell *matCellDef="let result">
+              {{ result.position }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="driver">
+            <th mat-header-cell *matHeaderCellDef>Driver</th>
+            <td mat-cell *matCellDef="let result">
+              <div style="display: flex; align-items: center;">
+                <img
+                  src="https://flagsapi.com/{{this.countryList[result.Driver.nationality]}}/flat/64.png"
+                  alt="Flag">
+                <div style="display: flex; flex-direction: column;">
+                  <div>{{ result.Driver.givenName }} {{ result.Driver.familyName }}</div>
+                  <div
+                    style="font-size: 12px; color: gray;">{{ result.Constructor.name }} {{ result.number }}
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef>Time</th>
+            <td mat-cell *matCellDef="let result">
+              @if (result.Time) {
+                {{ result.Time.time }}
+              } @else {
+                DNF: {{ result.status }}
+              }
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Pts</th>
+            <td mat-cell *matCellDef="let result">{{ result.points }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      }
+    } @else {
+      <div class="loader-container">
+        <mat-spinner></mat-spinner>
+
+      </div>
+    }
+
+  }
+
+
+</div>

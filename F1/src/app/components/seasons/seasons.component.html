@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label>Select a season</mat-label>
+  <mat-select [(value)]="f1Service.selectedSeason" (selectionChange)="getRounds()">
+    @for (season of (f1Service.seasons$|async); track season) {
+      <mat-option [value]="season">{{ season }}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
