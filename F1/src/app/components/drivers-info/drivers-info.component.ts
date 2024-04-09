@@ -17,7 +17,12 @@ import {F1Service} from '../../services/f1.service';
 })
 export class DriversInfoComponent {
 
-  f1Service = inject(F1Service)
+  constructor() {
+ this.f1Service.getWiki('Max Verstappen').subscribe((data) => {
+    console.log(data);
+  }, (err: string) => { console.log('something went wrong' + err)
+}); }
 
+  f1Service = inject(F1Service);
 
 }

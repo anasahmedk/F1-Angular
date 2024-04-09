@@ -4,6 +4,7 @@ import {SeasonsResponse} from '../models/f1-season';
 import {BehaviorSubject, catchError, of, retry, take} from 'rxjs';
 import {Race, RaceResponse} from '../models/f1-rounds';
 import {ResultsResponse} from '../models/f1-results';
+import { WikiSummary } from '../models/f1-wikiresults';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class F1Service {
   results$ = new BehaviorSubject<ResultsResponse>({} as ResultsResponse)
   selectedSeason = '';
   selectedRound = '';
+  wikiresults$ = new BehaviorSubject<WikiSummary>({} as WikiSummary)
+  winnerName = '';
 
   constructor(private http: HttpClient) {
   }
@@ -161,7 +164,17 @@ export class F1Service {
         })
       ).subscribe(response => {
         this.results$.next(response)
+        console.log(this.results$);
+        // this.winnerName = response.MRData.RaceTable.Races[0].Results[0].Driver.givenName + ' '
+        // + response.MRData.RaceTable.Races[0].Results[0].Driver.familyName
       })
+  }
+
+  getWiki(title: string) {
+    const tempTitle = title.replace(' ', '_') + '?redirect=true';
+    const baseUrl = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
+    return this.http.get<WikiSummary>(baseUrl+tempTitle);
+
   }
 
 }

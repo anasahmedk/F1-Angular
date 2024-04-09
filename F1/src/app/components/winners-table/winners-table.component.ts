@@ -79,7 +79,7 @@ export class WinnersComponent {
     f1Service = inject(F1Service)
 
     constructor() {
-        this.f1Service.getRaceResults()
+        this.f1Service.getRaceResults();
     }
 
 
